@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aroma Dew — Handmade Natural Soaps</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  /* Colors */
+  --color-sky-canvas: #426188;
+  --color-action-blue: #2b7fff;
+  --color-midnight-ink: #000000;
+  --color-cloud-white: #ffffff;
+  --color-charcoal-text: #1b1b1b;
+  --color-haze-grey: #f5f5f5;
+
+  /* Typography — Font Families */
+  --font-control: 'Playfair Display', Georgia, serif;
+  --font-control-compressed: 'Playfair Display', Georgia, serif;
+  --font-control-cursive: 'Playfair Display', Georgia, serif;
+  --font-control-tnt: 'Playfair Display', Georgia, serif;
+
+  /* Typography — Scale & Line Height */
+  --text-caption: 12px;
+  --leading-caption: 1.5;
+  --text-body: 14px;
+  --leading-body: 1.5;
+  --text-heading-sm: 20px;
+  --leading-heading-sm: 1.1;
+  --text-heading: 32px;
+  --leading-heading: 1.1;
+  --text-heading-lg: 56px;
+  --leading-heading-lg: 1;
+  --text-display: clamp(48px, 10vw, 120px); /* Custom scaled display headline */
+  --leading-display: 0.85;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-52: 52px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-120: 120px;
+
+  /* Layout */
+  --section-gap: 48px;
+  --card-padding: 20px;
+  --element-gap: 8px;
+
+  /* Border Radius */
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-lg-2: 11px;
+  --radius-xl: 14px;
+
+  /* Named Radii */
+  --radius-cards: 14px;
+  --radius-links: 8px;
+  --radius-images: 11px;
+  --radius-inputs: 4px;
+  --radius-buttons: 8px;
+  
+  /* Surfaces & Mappings */
+  --bg: var(--color-sky-canvas);
+  --text: var(--color-charcoal-text);
+  --muted: var(--color-charcoal-text); /* Slightly softer than midnight-ink */
+  --border: var(--color-haze-grey);
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-control);font-size:var(--text-body);line-height:var(--leading-body);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;height:72px;display:flex;align-items:center;padding:0 48px;transition:all 0.35s ease}
+#nav.scrolled{background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.08);box-shadow:0 4px 24px rgba(0,0,0,.03)}
+.nav-logo{font-family:var(--font-control-compressed);font-weight:900;text-transform:uppercase;font-size:22px;letter-spacing:0.05em;flex:1;color:var(--color-midnight-ink)}
+#nav.scrolled .nav-logo{color:var(--color-midnight-ink)}
+.nav-links{display:flex;gap:36px;flex:2;justify-content:center}
+.nav-links a{font-family:var(--font-control);font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--color-charcoal-text);transition:color .25s}
+.nav-links a:hover{color:var(--color-action-blue)}
+.nav-right{flex:1;display:flex;justify-content:flex-end;align-items:center;gap:24px}
+.nav-btn{display:inline-block;border:1px solid var(--color-charcoal-text);color:var(--color-charcoal-text);background:transparent;padding:8px 20px;font-family:var(--font-control);font-weight:500;font-size:11px;letter-spacing:.15em;text-transform:uppercase;border-radius:var(--radius-buttons);transition:all 0.3s ease}
+.nav-btn:hover{background:var(--color-charcoal-text);color:var(--color-cloud-white)}
+.cart-wrapper{position:relative;cursor:pointer;display:flex;align-items:center}
+.cart-icon{width:22px;height:22px;stroke:var(--color-charcoal-text);fill:none;stroke-width:1.5}
+.cart-count{background:var(--color-charcoal-text);color:#fff;font-size:10px;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:-6px;right:-8px}
+
+/* HERO */
+.hero{position:relative;height:50vw;max-height:100vh;min-height:550px;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:bottom center}
+.hero-content{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);text-align:center;width:90%;max-width:720px;z-index:1;display:flex;flex-direction:column;align-items:center}
+.hero-logo-sub {
+  font-family: var(--font-control-tnt);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-charcoal-text);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-family: var(--font-control-compressed);
+  font-size: var(--text-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--color-midnight-ink);
+  margin-bottom: 16px;
+  line-height: var(--leading-display);
+}
+.hero-desc {
+  font-family: var(--font-control-cursive);
+  font-size: 24px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--color-charcoal-text);
+  max-width: 580px;
+  margin-bottom: 20px;
+}
+.hero-benefits {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-control-tnt);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-charcoal-text);
+  margin-bottom: 0;
+}
+.hero-benefits .sep {
+  color: rgba(0,0,0,0.2);
+}
+.hero-link {
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  z-index: 10;
+  font-family: var(--font-control);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-action-blue);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--color-action-blue);
+  padding: 14px 32px;
+  border-radius: 9999px; /* Pill radius for primary outlined CTA */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.hero-link:hover {
+  background: var(--color-action-blue);
+  color: var(--color-cloud-white);
+  letter-spacing: 0.22em;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(43,127,255,0.2);
+}
+
+/* SECTION WRAPPER */
+.section{padding:var(--section-gap) 48px;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.section.visible{opacity:1;transform:none}
+.container{max-width:1280px;margin:0 auto}
+
+/* PRODUCT GRID */
+#soaps {
+  background: var(--color-cloud-white);
+}
+.prod-head{text-align:center;font-family:var(--font-control-cursive);font-size:var(--text-heading-lg);font-weight:500;color:var(--color-midnight-ink);margin-bottom:56px}
+.prod-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.prod-card{
+  cursor:pointer;
+  background:var(--color-haze-grey);
+  padding:var(--card-padding);
+  border-radius:var(--radius-cards); /* 14px */
+  transition:all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.prod-card:hover{
+  transform:translateY(-6px);
+  background:var(--color-cloud-white);
+  box-shadow:0 12px 30px rgba(0,0,0,0.04);
+}
+.prod-img-wrap{
+  position:relative;
+  aspect-ratio:4/5;
+  overflow:hidden;
+  border-radius:var(--radius-images); /* 11px */
+}
+.prod-img-wrap img{position:absolute;inset:0;transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease}
+.prod-img-wrap img.hover-img{opacity:0}
+.prod-card:hover .hover-img{opacity:1;transform:scale(1.04)}
+.prod-card:hover .main-img{opacity:0;transform:scale(1.04)}
+.prod-meta{padding-top:14px}
+.badge{
+  display:inline-block;
+  background:var(--color-midnight-ink);
+  color:var(--color-cloud-white);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:4px 10px;
+  margin-bottom:8px;
+  font-family:var(--font-control);
+  font-weight:500;
+  border-radius:var(--radius-inputs); /* 4px */
+}
+.badge.new{background:#426188}
+.badge.sold{background:#AAA}
+.prod-name{font-family:var(--font-control);font-size:15px;font-weight:500;color:var(--color-midnight-ink);margin-bottom:4px}
+.prod-price{font-family:var(--font-control-tnt);font-size:14px;color:var(--color-charcoal-text)}
+
+/* EDITORIAL IMAGE */
+.editorial{height:70vh;overflow:hidden;position:relative}
+.editorial img{width:100%;height:100%;object-fit:cover;object-position:center top}
+
+/* INFO SECTION */
+#about {
+  background: var(--color-haze-grey);
+}
+.info-head{text-align:center;font-family:var(--font-control-cursive);font-size:var(--text-heading-lg);font-weight:500;color:var(--color-midnight-ink);margin-bottom:64px}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;align-items:start}
+.info-col{
+  background:var(--color-cloud-white);
+  padding:var(--card-padding);
+  border-radius:var(--radius-cards); /* 14px */
+}
+.info-col h3{font-family:var(--font-control-compressed);font-size:var(--text-heading-sm);font-weight:900;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-midnight-ink);margin-bottom:12px}
+.info-col p{font-family:var(--font-control);font-size:var(--text-body);color:var(--color-charcoal-text);line-height:var(--leading-body);margin-bottom:16px}
+.info-col a.more{font-family:var(--font-control);font-size:13px;font-weight:500;color:var(--color-action-blue);text-decoration:none;border-bottom:1px solid var(--color-action-blue);padding-bottom:2px;display:inline-block;margin-bottom:20px}
+.info-col a.more:hover{color:var(--color-midnight-ink);border-bottom-color:var(--color-midnight-ink)}
+.info-img-tall{aspect-ratio:3/4;overflow:hidden;margin-top:20px;border-radius:var(--radius-images)}
+.info-img-sq{aspect-ratio:1/1;overflow:hidden;margin-top:20px;border-radius:var(--radius-images)}
+
+/* FAQ */
+.faq-list{margin-top:12px}
+.faq-item{
+  border:1px solid rgba(0,0,0,0.06);
+  background:var(--color-haze-grey);
+  border-radius:12px;
+  padding:16px 20px;
+  margin-bottom:12px;
+  transition:all 0.3s ease;
+}
+.faq-item.open{
+  background:var(--color-cloud-white);
+  border-color:var(--color-midnight-ink);
+}
+.faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-control);font-size:14px;font-weight:500;color:var(--color-midnight-ink);gap:12px}
+.faq-arrow{width:16px;height:16px;flex-shrink:0;transition:transform .3s ease;stroke:var(--color-midnight-ink);fill:none;stroke-width:2}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-family:var(--font-control);font-size:13px;color:var(--color-charcoal-text);line-height:1.6}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding-top:10px}
+
+/* SUBSCRIBE */
+.subscribe{background:var(--color-cloud-white);padding:var(--spacing-80) 48px;text-align:center;border-bottom:1px solid var(--color-haze-grey);opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.subscribe.visible{opacity:1;transform:none}
+.subscribe h2{font-family:var(--font-control-cursive);font-size:var(--text-heading);font-weight:500;color:var(--color-midnight-ink);margin-bottom:36px}
+.sub-form{display:flex;justify-content:center;align-items:center;gap:12px}
+.sub-form input{
+  width:320px;
+  height:48px;
+  border:1px solid rgba(0,0,0,0.1);
+  background:var(--color-haze-grey);
+  color:var(--color-charcoal-text);
+  border-radius:var(--radius-inputs); /* 4px */
+  padding:0 16px;
+  font-size:14px;
+  font-family:var(--font-control);
+  font-weight:500;
+  outline:none;
+  transition:all 0.3s ease;
+}
+.sub-form input:focus {
+  border-color: var(--color-midnight-ink);
+  background: var(--color-cloud-white);
+}
+.sub-form input::placeholder{color:#AAA}
+.sub-form button{
+  height:48px;
+  padding:0 32px;
+  background:transparent;
+  color:var(--color-action-blue);
+  border:1px solid var(--color-action-blue);
+  border-radius:var(--radius-buttons); /* 8px */
+  font-size:13px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  cursor:pointer;
+  font-family:var(--font-control);
+  font-weight:500;
+  transition:all 0.3s ease;
+}
+.sub-form button:hover{background:var(--color-action-blue);color:var(--color-cloud-white)}
+
+/* FOOTER */
+footer{background:var(--color-sky-canvas);color:var(--color-cloud-white);padding:var(--spacing-64) 48px var(--spacing-32)}
+.foot-top{display:flex;justify-content:space-between;gap:48px}
+.foot-brand{font-family:var(--font-control-compressed);font-weight:900;font-size:32px;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px;color:var(--color-cloud-white)}
+.foot-info{font-family:var(--font-control);font-size:13px;color:rgba(255,255,255,0.7);line-height:2.2}
+.foot-info a{color:var(--color-cloud-white);text-decoration:underline}
+.foot-nav{display:grid;grid-template-columns:repeat(3,auto);gap:8px 32px;align-content:start;justify-items:start}
+.foot-nav a{font-family:var(--font-control);font-size:12px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:.08em;transition:color .25s}
+.foot-nav a:hover{color:var(--color-cloud-white)}
+.foot-divider{border:none;border-top:1px solid rgba(255,255,255,0.15);margin:40px 0}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-family:var(--font-control);font-size:12px;color:rgba(255,255,255,0.5)}
+.ig-icon{width:20px;height:20px;stroke:rgba(255,255,255,0.7);fill:none;stroke-width:1.5;cursor:pointer;transition:stroke .25s}
+.ig-icon:hover{stroke:var(--color-cloud-white)}
+
+/* MOBILE */
+@media(max-width:768px){
+  #nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero {
+    height: 70vh;
+    min-height: auto;
+  }
+  .hero-content{top:36%;transform:translate(-50%,-36%);padding:0 24px;width:100%}
+  .hero h1 { font-size: 36px; letter-spacing: 0.05em; }
+  .hero-desc { font-size: 18px; }
+  .hero-benefits { flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .hero-benefits .sep { display: none; }
+  .hero-link {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    box-shadow: none;
+    white-space: nowrap;
+    margin-top: 0;
+  }
+  .section{padding:64px 24px}
+  .prod-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .info-grid{grid-template-columns:1fr}
+  .sub-form{flex-direction:column;align-items:center;gap:12px}
+  .sub-form input{width:100%}
+  .sub-form button{width:100%}
+  .foot-top{flex-direction:column;gap:32px}
+  .subscribe{padding:64px 24px}
+  footer{padding:48px 24px 32px}
+}
+@media(max-width:480px){
+  .prod-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Aroma Dew</div>
+  <div class="nav-links">
+    <a href="#soaps">Soaps</a>
+    <a href="#about">About</a>
+    <a href="#ingredients">Ingredients</a>
+    <a href="#faq">FAQ</a>
+    <a href="#journal">Journal</a>
+  </div>
+  <div class="nav-right">
+    <a href="#soaps" class="nav-btn">Shop Now</a>
+    <div class="cart-wrapper">
+      <svg class="cart-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-count">0</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="soap_bg.jpg" alt="Aroma Dew handmade soaps on natural surface">
+  <div class="hero-content">
+    <div class="hero-logo-sub">Anna Ventures</div>
+    <h1>Aroma Dew</h1>
+    <p class="hero-desc">Handcrafted natural soaps infused with the goodness of Rose, Jasmine, Aloe Vera & Lavender.</p>
+    <div class="hero-benefits">
+      <span>100% Paraben Free</span>
+      <span class="sep">&middot;</span>
+      <span>Made with Natural Ingredients</span>
+      <span class="sep">&middot;</span>
+      <span>Suitable for All Skin Types</span>
+    </div>
+  </div>
+  <a href="#soaps" class="hero-link">Explore the Collection &rarr;</a>
+</section>
+
+<!-- PRODUCT GRID -->
+<section class="section" id="soaps">
+  <div class="container">
+    <h2 class="prod-head">Five scents. One ritual.</h2>
+    <div class="prod-grid">
+
+      <!-- 1. Lavender -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <img class="main-img" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80&fit=crop" alt="Lavender Calm soap">
+          <img class="hover-img" src="https://images.unsplash.com/photo-1599305090598-fe179d501227?w=600&q=80&fit=crop" alt="Lavender Calm soap detail">
+        </div>
+        <div class="prod-meta">
+          <span class="badge">Best Seller</span>
+          <div class="prod-name">Lavender Calm</div>
+          <div class="prod-price">₹349</div>
+        </div>
+      </div>
+
+      <!-- 2. Rose -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <img class="main-img" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=80&fit=crop" alt="Rose Petal Glow soap">
+          <img class="hover-img" src="https://images.unsplash.com/photo-1583241800698-e8ab01830a22?w=600&q=80&fit=crop" alt="Rose Petal Glow soap detail">
+        </div>
+        <div class="prod-meta">
+          <span class="badge new">New</span>
+          <div class="prod-name">Rose Petal Glow</div>
+          <div class="prod-price">₹379</div>
+        </div>
+      </div>
+
+      <!-- 3. Charcoal -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <img class="main-img" src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80&fit=crop" alt="Activated Charcoal Detox soap">
+          <img class="hover-img" src="https://images.unsplash.com/photo-1585652757141-4b8f7f5b3b6a?w=600&q=80&fit=crop" alt="Charcoal Detox soap detail">
+        </div>
+        <div class="prod-meta">
+          <div class="prod-name">Charcoal Detox</div>
+          <div class="prod-price">₹359</div>
+        </div>
+      </div>
+
+      <!-- 4. Turmeric -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <img class="main-img" src="https://images.unsplash.com/photo-1612538498456-e861df91d4d0?w=600&q=80&fit=crop" alt="Turmeric Brighten soap">
+          <img class="hover-img" src="https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=600&q=80&fit=crop" alt="Turmeric Brighten detail">
+        </div>
+        <div class="prod-meta">
+          <span class="badge">Popular</span>
+          <div class="prod-name">Turmeric Brighten</div>
+          <div class="prod-price">₹349</div>
+        </div>
+      </div>
+
+      <!-- 5. Mint -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <img class="main-img" src="https://images.unsplash.com/photo-1600785686886-a1e45c56e2ba?w=600&q=80&fit=crop" alt="Peppermint Fresh soap">
+          <img class="hover-img" src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=600&q=80&fit=crop" alt="Peppermint Fresh detail">
+        </div>
+        <div class="prod-meta">
+          <div class="prod-name">Peppermint Fresh</div>
+          <div class="prod-price">₹349</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL IMAGE -->
+<div class="editorial">
+  <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=1920&q=85&fit=crop" alt="Natural soap ingredients flatlay">
+</div>
+
+<!-- INFO SECTION -->
+<section class="section" id="about">
+  <div class="container">
+    <h2 class="info-head">A better way to bathe</h2>
+    <div class="info-grid">
+
+      <!-- Col 1: About -->
+      <div class="info-col">
+        <h3>About Aroma Dew</h3>
+        <p>Born from a love of botanicals and traditional cold-process soap-making, Aroma Dew crafts every bar by hand in small batches. Each soap is cured for a minimum of 6 weeks so it lathers richly and lasts long.</p>
+        <a href="#" class="more">Learn more about Aroma Dew →</a>
+        <div class="info-img-tall"><img src="https://images.unsplash.com/photo-1600857544200-b2f468e40a8b?w=800&q=80&fit=crop&crop=center" alt="Aroma Dew soap making process"></div>
+      </div>
+
+      <!-- Col 2: Ingredients -->
+      <div class="info-col" id="ingredients">
+        <h3>Natural Ingredients</h3>
+        <p>Every Aroma Dew soap is built on a base of cold-pressed coconut oil, castor oil, and shea butter — chosen for their skin-nourishing and lathering properties. Botanical extracts, clays, and essential oils do the rest.</p>
+        <p><strong>Key ingredients:</strong> Coconut Oil · Shea Butter · Castor Oil · Kaolin Clay · Pure Essential Oils · Activated Charcoal · Turmeric Extract</p>
+        <div class="info-img-sq"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&q=80&fit=crop" alt="Natural soap ingredients"></div>
+      </div>
+
+      <!-- Col 3: FAQ -->
+      <div class="info-col" id="faq">
+        <h3>FAQs</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <div class="faq-q">
+              <span>What is in Aroma Dew soaps?</span>
+              <svg class="faq-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">Our soaps are made with cold-pressed coconut oil, shea butter, castor oil, and pure essential oils. We never use synthetic fragrances, sulphates, parabens, or artificial colours.</div></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              <span>Are they safe for sensitive skin?</span>
+              <svg class="faq-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">Yes. All five variants are formulated without harsh surfactants. If you have very sensitive skin, we recommend our Lavender Calm bar which uses the gentlest botanical blend.</div></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              <span>How long does one bar last?</span>
+              <svg class="faq-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">Each 100g bar lasts approximately 4–6 weeks with daily use. Using a well-draining soap dish between uses significantly extends its life.</div></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              <span>How are Aroma Dew soaps made?</span>
+              <svg class="faq-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">We use the cold-process method — oils and lye water are combined at low temperatures to preserve the integrity of every botanical ingredient. Each batch is poured into moulds, cut by hand, and cured for 6 weeks before sale.</div></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIBE -->
+<div class="subscribe" id="subscribe">
+  <h2>Get 10% off your first order</h2>
+  <div class="sub-form">
+    <input type="email" placeholder="Your email address">
+    <button type="button">Join</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">Aroma Dew</div>
+        <div class="foot-info">
+          Handmade Natural Soaps<br>
+          Bangalore, Karnataka 560001<br>
+          +91 98765 43210<br>
+          <a href="mailto:hello@aromadew.in">hello@aromadew.in</a>
+        </div>
+      </div>
+      <nav class="foot-nav">
+        <a href="#">Contact</a>
+        <a href="#">Wholesale</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Refund Policy</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#" id="journal">Journal</a>
+      </nav>
+    </div>
+    <hr class="foot-divider">
+    <div class="foot-bottom">
+      <span class="foot-copy">© 2026, Aroma Dew. All rights reserved.</span>
+      <svg class="ig-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>64);
+});
+
+// INTERSECTION OBSERVER — fade in sections
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.section,.subscribe').forEach(el=>obs.observe(el));
+
+// FAQ ACCORDION
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const item=q.closest('.faq-item');
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen)item.classList.add('open');
+  });
+});
+
+// CART COUNT (demo)
+let count=0;
+document.querySelectorAll('.prod-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    count++;
+    document.querySelector('.cart-count').textContent=count;
+  });
+});
+
+// SUBSCRIBE
+document.querySelector('.sub-form button').addEventListener('click',()=>{
+  const inp=document.querySelector('.sub-form input');
+  if(inp.value.includes('@')){
+    inp.value='';
+    inp.placeholder='Thank you! Check your inbox.';
+    setTimeout(()=>inp.placeholder='Your email address',3000);
+  }
+});
+</script>
+</body>
+</html>
